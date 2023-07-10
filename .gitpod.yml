@@ -7,6 +7,7 @@ tasks:
       source ./venv/bin/activate
       export FLASK_APP=./app/vuln_app.py
       export FLASK_ENV=development
+      flask run
 
 ports:
   - name: flask-app
