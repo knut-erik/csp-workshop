@@ -1,0 +1,11 @@
+version: '3.9'
+services:
+  flaskwebapp:
+    build:
+      context: .
+      dockerfile: .gitpod.Dockerfile 
+    container_name: myflaskapp
+    ports:
+        - "8080:5000"
+    volumes:
+        - ./app:/tmp/flaskapp

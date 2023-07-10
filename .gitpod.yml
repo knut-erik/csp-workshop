@@ -1,0 +1,11 @@
+tasks:
+  - name: Docker compose
+    command: |
+      docker compose build && docker compose up
+
+ports:
+  - name: flask-app
+    description: The flask web app 
+    port: 8080
+    visibility: private
+    onOpen: open-preview

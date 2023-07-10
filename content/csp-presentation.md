@@ -35,17 +35,14 @@ style: |
     color: #F9EAD4;
   }
 
-  section blockquote.p.em {
-    text-align: center;
-  }
-
 ---
 
 <!-- _class: lead -->
 # Content Security Policies<br>Workshop
 
->_Security isn’t something you buy
->it’s something you do_
+>Security isn’t something you buy
+>it’s something you do
+
 ---
 
 # Agenda
