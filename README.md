@@ -1,3 +1,5 @@
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/bouvet-deler/csp-workshop)
+
 # Content Security Policy Workshop - (AppSec Series)
 
 ## Agenda (draft)
