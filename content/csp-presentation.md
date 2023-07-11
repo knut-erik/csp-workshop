@@ -25,18 +25,17 @@ style: |
     font-size: 1.2rem;
   }
 
-  section::before {
-    color: #F9EAD4;
-  }
-
   section::after {
     content: attr(data-marpit-pagination) '/' attr(data-marpit-pagination-total);
-    font-size: 1.1rem;
+    font-size: 0.8rem;
     color: #F9EAD4;
   }
 
   section blockquote {
     margin:auto;
+  }
+  section footer {
+    font-size: 0.3rem;
   }
 
 ---
@@ -189,7 +188,6 @@ neste what
 # Directive : `default-src`
 
 If a [`default-src`](https://www.w3.org/TR/CSP3/#directive-default-src) directive is present in a policy, its value will be used as the policy’s default source list. That is, given `default-src 'none';` `script-src 'self'`, script requests will use `'self'` as the source list to match against. Other requests will use `'none'`.
-
 Test code:
 ```html
 <head>
