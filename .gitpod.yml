@@ -18,3 +18,9 @@ ports:
     port: 5000
     visibility: private
     onOpen: open-preview
+
+vscode:
+    extensions:
+        - marp-team.marp-vscode
+        - ms-python.python
+        - mhutchie.git-graph
