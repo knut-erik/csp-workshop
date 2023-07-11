@@ -24,3 +24,4 @@ vscode:
         - marp-team.marp-vscode
         - ms-python.python
         - mhutchie.git-graph
+        - ritwickdey.LiveServer
