@@ -63,40 +63,49 @@ style: |
               - Migration approach for your existing project
 11:45 - 12:00 - Summary
 ```
+---
+
+<style scoped>
+section h1 {
+  font-size: 12rem;
+  color: red;
+  text-align: center;
+  
+}
+</style>
+
+# &lt;
 
 ---
 
-```javascript
-""[(!1+"")[3]+(!0+"")[2]+(''+{})[2]][(''+{})[5]+(''+{})[1]+((""[(!1+"")[3]+
-(!0+"")[2]+(''+{})[2]])+"")[2]+(!1+'')[3]+(!0+'')[0]+(!0+'')[1]+(!0+'')[2]+
-(''+{})[5]+(!0+'')[0]+(''+{})[1]+(!0+'')[1]](((!1+"")[1]+(!1+"")[2]+(!0+"")[3]+
-(!0+"")[1]+(!0+"")[0])+"(1)")()
-```
-
----
-
-<style>
-section.lead h1 {
-  font-size: 10rem;
+<style scoped>
+section code {
+  text-align: left;
+  font-size: 1.1em;
+  background-color:black;
+  color: white;
+  
+}
+section h1 {
+  font-size: 3rem;
   color: red;
   text-align: center;
 }
 </style>
 
-<!-- _class: lead -->
-# <
+# 😬😳🫨🤯
+
+`""[(!1+"")[3]+(!0+"")[2]+(''+{})[2]][(''+{})[5]+(''+{})[1]+((""[(!1+"")[3]+(!0"")[2]+(''+{})[2]]+"")[2]+(!1+'')[3]+(!0+'')[0]+(!0+'')[1]+(!0+'')[2]+(''+{})[5]+(!0+'')[0]+(''+{})[1]+(!0+'')[1]](((!1+"")[1]+(!1+"")[2]+(!0+"")[3]+(!0+"")[1+(!0+"")[0])+"(1)")()`
 
 ---
-
-<style>
-section.lead h1 {
-  font-size: 10rem;
+<style scoped>
+section h1 {
+  font-size: 14rem;
   color: red;
   text-align: center;
 }
 </style>
 
-<!-- _class: lead -->
 # XSS
 
 ---
