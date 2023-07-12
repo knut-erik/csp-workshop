@@ -47,7 +47,7 @@ section h1 {
 <style scoped>
 section code {
   text-align: left;
-  font-size: 1.1em;
+  font-size: 1.1rem;
   background-color:black;
   color: white;
   
@@ -73,6 +73,19 @@ section h1 {
 </style>
 
 # XSS
+
+---
+<style scoped>
+section code {
+  font-size: 1.2rem;
+}
+</style>
+
+```javascript
+Function("alert(1)")()
+```
+<!--# Function("alert(1)")(); -->
+<!--# Function("alert(document.cookie)")(); -->
 
 ---
 
