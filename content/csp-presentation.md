@@ -1,46 +1,12 @@
 ---
 marp: true
 size: 16:9
-theme: gaia
+theme: bouvet
 footer: AppSec Workshop - Content Security Policies
-paginate: true
-style: |
-  section {
-    background: #11133C;
-    font-color: #F9EAD4;
-  }
-  section {font-family: 'Inter'; color: black; }
-  
-  section.lead h1 {
-    text-align: center;
-    color: #F9EAD4;
-    font-size: 1.5rem;
-  }
-
-  section h1, h2, h3, h4, h5, li, p, blockquote, blockquote:before, blockquote:after, footer, lead, th, td {
-    color: #F9EAD4;
-  }
-
-  section h1 {
-    font-size: 1.2rem;
-  }
-
-  section::after {
-    content: attr(data-marpit-pagination) '/' attr(data-marpit-pagination-total);
-    font-size: 0.8rem;
-    color: #F9EAD4;
-  }
-
-  section blockquote {
-    margin:auto;
-  }
-  section footer {
-    font-size: 0.3rem;
-  }
-
+paginate: true  
 ---
-
 <!-- _class: lead -->
+![bg right:35%](https://bouvet.fotoware.cloud/fotoweb/cache/v2/B/u/Folder%2045/1265388_568436249871255_532998036_o.jpg.iyf-z_7VMc1lTYFjgBkA.PbsMGhTVH8.jpg)
 # Content Security Policies<br>Workshop
 
 >Security isn’t something you buy it’s something you do!
