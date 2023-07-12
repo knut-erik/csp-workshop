@@ -95,7 +95,7 @@ section h1 {
 
 # 😬😳🫨🤯
 
-`""[(!1+"")[3]+(!0+"")[2]+(''+{})[2]][(''+{})[5]+(''+{})[1]+((""[(!1+"")[3]+(!0"")[2]+(''+{})[2]]+"")[2]+(!1+'')[3]+(!0+'')[0]+(!0+'')[1]+(!0+'')[2]+(''+{})[5]+(!0+'')[0]+(''+{})[1]+(!0+'')[1]](((!1+"")[1]+(!1+"")[2]+(!0+"")[3]+(!0+"")[1+(!0+"")[0])+"(1)")()`
+`""[(!1+"")[3]+(!0+"")[2]+(''+{})[2]][(''+{})[5]+(''+{})[1]+((""[(!1+"")[3]+(!0+"")[2]+(''+{})[2]])+"")[2]+(!1+'')[3]+(!0+'')[0]+(!0+'')[1]+(!0+'')[2]+(''+{})[5]+(!0+'')[0]+(''+{})[1]+(!0+'')[1]](((!1+"")[1]+(!1+"")[2]+(!0+"")[3]+(!0+"")[1]+(!0+"")[0])+"(1)")()`
 
 ---
 <style scoped>
@@ -112,7 +112,7 @@ section h1 {
 
 # Top Most Dangerous Software Weaknesses
 
-1. Out-of-bounds Write
+1. Out-of-bounds Write - (overwrite memory - C/C++)
 2. Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')
 3. Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')
 
@@ -122,9 +122,9 @@ Source: [MITRE - cwe.mitre.org - 2023](https://cwe.mitre.org/top25/archive/2023/
 
 # XSS - Cross-Site Scripting 
 
-- Is a misnomer - Wrong name, nothing cross site about it
-- A better name is "Java Script Injection" or "Content Injection"
-- Easy to fix - difficult to fix at scale
+* Is a misnomer - Wrong name, nothing cross site about it
+* A better name is "Java Script Injection" or "Content Injection"
+* Easy to fix - difficult to fix at scale
 
 ---
 
