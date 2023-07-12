@@ -1,0 +1,47 @@
+/*!
+ * Marp / Marpit Bouvet theme.
+ *
+ * @theme bouvet
+ * @author Knut Erik Hollund
+ *
+ * @auto-scaling true
+ * @size 16:9 1280px 720px
+ * @size 4:3 960px 720px
+ */
+ @import 'gaia'; /* inherit 'gaia' theme */
+ @import url('https://fonts.googleapis.com/css?family=Inter:400,500,700');
+  
+section {
+  font-family: 'Inter';
+  color: #F9EAD4; 
+}
+ 
+section {
+    background: #11133C;
+    color: #F9EAD4;
+  }
+
+section.lead h1 {
+    font-size: 1.5rem;
+  }
+
+section h1, h2, h3, h4, h5, li, p, blockquote, blockquote:before, blockquote:after, footer, lead, th, td {
+    color: #F9EAD4;
+  }
+
+  section h1 {
+    font-size: 1.2rem;
+  }
+
+  section::after {
+    content: attr(data-marpit-pagination) '/' attr(data-marpit-pagination-total);
+    font-size: 0.8rem;
+  }
+  
+  section blockquote {
+    margin:auto;
+  }
+
+  section footer {
+    font-size: 0.3rem;
+  }
