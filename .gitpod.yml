@@ -9,7 +9,7 @@ tasks:
       export FLASK_ENV=development
       flask --debug run
   - name: Local terminal
-    init: git config --global gpg.format ssh && git config --global user.signingkey "$GP_SSH_SIGNING_KEY" && git config --global commit.gpgsign true
+    init: git config --global gpg.format ssh && git config --global user.signingkey /home/gitpod/.ssh/id_rsa.pub && git config --global commit.gpgsign true
     command: bash
 
 ports:
