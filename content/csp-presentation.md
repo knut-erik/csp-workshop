@@ -12,6 +12,13 @@ paginate: true
 >Security isn’t something you buy it’s something you do!
 
 ---
+## Learning objectives 👩🏽‍🏫
+
+- 👨🏼‍💻 Awareness and understanding of certain types of web app attacks
+- 🐞 Exploring and learning Content Security Policies and how they can mitigate attacks
+- 🤩 Inspire to increase understanding of Application Security (AppSec) 
+- 🤗 Have a shit load of fun while learning! 
+---
 
 # Agenda
 
