@@ -1,4 +1,12 @@
 tasks:
+  - before: >
+        mkdir -p ~/.ssh &&
+        [[ ! -z $GP_SSH_SIGNING_KEY  ]] &&
+        echo $GP_SSH_SIGNING_KEY > ~/.ssh/id_rsa.pub &&
+        chmod 644 ~/.ssh/id_rsa.pub &&
+        [[ ! -z $GP_SSH_SIGNING_PRIVKEY  ]] &&
+        echo $GP_SSH_SIGNING_PRIVKEY | base64 -d > ~/.ssh/id_rsa &&
+        chmod 600 ~/.ssh/id_rsa
   - name: Python environment
     command: |
       apt-get install python3-flask -y
@@ -9,7 +17,7 @@ tasks:
       export FLASK_ENV=development
       flask --debug run
   - name: Local terminal
-    init: git config --global gpg.format ssh && git config --global user.signingkey "$GP_SSH_SIGNING_KEY" && git config --global commit.gpgsign true
+    init: git config --global gpg.format ssh && git config --global user.signingkey /home/gitpod/.ssh/id_rsa.pub && git config --global commit.gpgsign true
     command: bash
 
 ports:
