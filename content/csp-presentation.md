@@ -30,7 +30,31 @@ paginate: true
 11:45 - 12:00 - Summary
 ```
 ---
+# Disclaimer
 
+- I'm not an expert but I'm here to learn and I share what I've learned so far in the journey
+- Application Security is a broad topic - this workshop has it's focus on CSP and defending certain types of attacks
+- The perspective is depended on experience, personal journey in security and many other factors
+- The more we learn about cyber security, the more we realise how complex it is
+- Please share your thoughts, ideas and experiences
+
+---
+<style scoped>
+section h1 {
+  font-size: 1.5rem;
+  color: red;
+  text-align: center;
+}
+
+</style>
+# Warning ⚠️⚠️⚠️
+
+- Warning: Please do not attempt to hack any computer system without legal permission to do so. Unauthorised computer hacking is illegal and can be punished
+- Innbrudd i datasystem
+  - Lovdata §204 https://lovdata.no/lov/2005-05-20-28/§204
+  - _"Med bot eller fengsel inntil 2 år straffes den som ved å bryte en beskyttelse eller ved annen uberettiget fremgangsmåte skaffer seg tilgang til datasystem eller del av det"_
+
+---
 <style scoped>
 section h1 {
   font-size: 12rem;
@@ -63,6 +87,7 @@ section h1 {
 
 `""[(!1+"")[3]+(!0+"")[2]+(''+{})[2]][(''+{})[5]+(''+{})[1]+((""[(!1+"")[3]+(!0+"")[2]+(''+{})[2]])+"")[2]+(!1+'')[3]+(!0+'')[0]+(!0+'')[1]+(!0+'')[2]+(''+{})[5]+(!0+'')[0]+(''+{})[1]+(!0+'')[1]](((!1+"")[1]+(!1+"")[2]+(!0+"")[3]+(!0+"")[1]+(!0+"")[0])+"(1)")()`
 
+<!-- source: https://inventropy.us/blog/constructing-an-xss-vector-using-no-letters  -->
 ---
 <style scoped>
 section h1 {
