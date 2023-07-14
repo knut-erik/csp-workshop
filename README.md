@@ -35,4 +35,3 @@ You can also use gitpod.io to get access to a fully running python environment -
 ---
 
 [MIT LICENSE](./LICENSE)
-
