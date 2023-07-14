@@ -1,11 +1,11 @@
 tasks:
   - before: >
         mkdir -p ~/.ssh &&
-        [[ ! -z GP_SSH_SIGNING_KEY  ]] &&
-        echo GP_SSH_SIGNING_KEY > ~/.ssh/id_rsa.pub &&
+        [[ ! -z $GP_SSH_SIGNING_KEY  ]] &&
+        echo $GP_SSH_SIGNING_KEY > ~/.ssh/id_rsa.pub &&
         chmod 644 ~/.ssh/id_rsa.pub &&
-        [[ ! -z GP_SSH_SIGNING_PRIVKEY  ]] &&
-        echo GP_SSH_SIGNING_PRIVKEY | base64 -d > ~/.ssh/id_rsa &&
+        [[ ! -z $GP_SSH_SIGNING_PRIVKEY  ]] &&
+        echo $GP_SSH_SIGNING_PRIVKEY | base64 -d > ~/.ssh/id_rsa &&
         chmod 600 ~/.ssh/id_rsa
   - name: Python environment
     command: |
