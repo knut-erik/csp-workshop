@@ -16,9 +16,6 @@ tasks:
       export FLASK_APP=./app/vuln_app.py
       export FLASK_ENV=development
       flask --debug run
-  - name: Local terminal
-    init: git config --global gpg.format ssh && git config --global user.signingkey /home/gitpod/.ssh/id_rsa.pub && git config --global commit.gpgsign true
-    command: bash
 
 ports:
   - name: flask-app
@@ -26,6 +23,21 @@ ports:
     port: 5000
     visibility: private
     onOpen: open-preview
+
+gitConfig:
+    gpg.format: ssh
+    commit.gpgsign: "true"
+    user.signingkey: ~/.ssh/id_rsa.pub
+
+github:
+    prebuilds:
+        master: true
+        branches: true
+        pullRequests: true
+        pullRequestsFromForks: true
+        addCheck: true
+        addComment: false
+        addBadge: true
 
 vscode:
     extensions:
