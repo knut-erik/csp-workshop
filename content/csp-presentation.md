@@ -3,7 +3,8 @@ marp: true
 size: 16:9
 theme: bouvet
 footer: AppSec Workshop - Content Security Policies
-paginate: true  
+paginate: true
+html: true  
 ---
 <!-- _class: lead -->
 ![bg right:35%](https://bouvet.fotoware.cloud/fotoweb/cache/v2/B/u/Folder%2045/1265388_568436249871255_532998036_o.jpg.iyf-z_7VMc1lTYFjgBkA.PbsMGhTVH8.jpg)
@@ -17,7 +18,7 @@ paginate: true
 - 👨🏼‍💻 Awareness and understanding of certain types of web app attacks
 - 🐞 Exploring and learning Content Security Policies and how they can mitigate attacks
 - 🤩 Inspire to increase understanding of Application Security (AppSec) 
-- 🤗 Have a shit load of fun while learning! 
+- 🤗 Have fun while learning! 
 ---
 
 # Agenda
