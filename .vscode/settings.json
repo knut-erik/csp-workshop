@@ -1,5 +1,5 @@
 {
     "markdown.marp.themes": [
-        "/themes/bouvet.css"
+        "./themes/bouvet.css"
     ]
   }
