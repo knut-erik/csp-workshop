@@ -7,7 +7,7 @@ paginate: true
 html: true  
 ---
 <!-- _class: lead -->
-![bg right:35%](https://bouvet.fotoware.cloud/fotoweb/cache/v2/B/u/Folder%2045/1265388_568436249871255_532998036_o.jpg.iyf-z_7VMc1lTYFjgBkA.PbsMGhTVH8.jpg)
+![bg right:35%](./resources/bouvet_people.jpg)
 # Content Security Policies<br>Workshop
 
 >Security isn’t something you buy it’s something you do!
