@@ -10,7 +10,9 @@ html: true
 ![bg right:35%](./resources/bouvet_people.jpg)
 # Content Security Policies<br>Workshop
 
->Security isn’t something you buy it’s something you do!
+```
+Security isn’t something you buy, it’s something you do!
+```
 
 ---
 ## Learning objectives 👩🏽‍🏫
@@ -24,7 +26,7 @@ html: true
 # Agenda
 
 ```
-09:00 - 09:30 - Why do we need CSP - the risk of injections
+09:00 - 09:30 - Why - The risk of injections
               - What is CSP
               - How can we use CSP
 09:30 - 11:00 - CSP directives - with a ☕️ break :
@@ -34,7 +36,7 @@ html: true
               - Media directives - "img-src" and "media-src"
 11:00 - 11:30 - Reporting URI - logging violation issues
               - "report-uri" directive
-              - Migration approach for your existing project
+              - Applying directives to your existing project
 11:45 - 12:00 - Summary
 ```
 ---
@@ -229,9 +231,11 @@ Stored XSS generally occurs when user input is stored on the target server, such
 
 ---
 
-## How can we use CSP to mitigate XSS
+# How can we use CSP to mitigate XSS
  
 In your `<head>` section<br>`Content-Security-Policy: <policy-directive>; <policy-directive>`
+
+`Content-Security-Policy-Report-Only` header is useful for reporting, instead of restricting.
 
 Example:
 
@@ -255,7 +259,7 @@ neste what
 
 # Explore directives
 
-## `default-src` - `script-src`<br>`style-src` - `font-src`
+# `default-src` - `script-src`<br>`style-src` - `font-src`
 
 ---
 
@@ -302,9 +306,7 @@ Test code:
 ---
 <!-- _class: lead -->
 
-# Explore directive
-
-## `connect-src` - `media-src`
+# Explore directive<br>`connect-src` - `media-src`
 
 
 ---
@@ -313,3 +315,20 @@ Test code:
 
 # Reporting violations of directives<br>`report-uri`
 
+---
+
+<!-- _class: lead -->
+
+# Applying directives to your<br>existing project
+
+---
+
+# Restrict and then adjust
+
+1. Start with locking down everything
+  `default-src='self';`
+2. Set the directive to just report errors
+  `Content-Security-Policy-Report-Only: default-src='self';`
+3. Start adding directives - step by step
+ `script-src` , `style-src` and `font-src`
+4. Adjust directives, by interpreting the console log
