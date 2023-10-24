@@ -285,7 +285,7 @@ Test code:
 ```html
 <head>
 ...
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src='self'; ">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' <other_source>; ">
 ...
 </head>
 ```
@@ -294,10 +294,13 @@ Test code:
 
 # Directive : `font-src`
 
+The [font-src](https://www.w3.org/TR/CSP3/#directive-font-src) directive specifies valid sources for fonts loaded using `@font-face`.
+
+Test code:
 ```html
 <head>
 ...
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src='self'; style-src='self'; font-src='self'; ">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self' <other_source>; ">
 ...
 </head>
 ```
@@ -310,10 +313,79 @@ Test code:
 
 
 ---
+# Directive : `connect-src`
+
+The [connect-src](https://www.w3.org/TR/CSP3/#directive-connect-src) directive restricts the URLs which can be loaded using script interfaces. The APIs that are restricted are:
+`<a> ping` - `fetch()` - `XMLHttpRequest` - `WebSocket` - `EventSource` and `Navigator.sendBeacon()`
+
+Test code:
+```html
+<head>
+...
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self' <other_source>; ">
+...
+</head>
+```
+---
+# Directive : `media-src`
+
+The [media-src](https://www.w3.org/TR/CSP3/#directive-media-src) directive restricts the URLs from which `<video>`, `<audio>`, and associated text track resources may be loaded.
+
+Test code:
+```html
+<head>
+...
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; media-src 'self' <other_source>; ">
+...
+</head>
+```
+---
 
 <!-- _class: lead -->
 
-# Reporting violations of directives<br>`report-uri`
+# Reporting violations of directives<br>`report-uri` / `report-to`
+
+---
+# Directive : `report-uri` / `report-to`
+
+[report-uri](https://www.w3.org/TR/CSP3/#directive-report-uri) is deprecated. However not all browsers support the new directive [report-to](https://www.w3.org/TR/CSP3/#directive-report-to), thus is ok to include both to support past and future browsers.
+
+The [report-to](https://www.w3.org/TR/CSP3/#directive-report-to) directive defines a reporting endpoint to which violation reports ought to be sent.
+
+---
+`report-to` example:
+```html
+<head>
+...
+  <meta http-equiv="Reporting-Endpoints" content="main-endpoint='https://bouvet.no/csp-reports', default='https://backup.bouvet.no/csp-reports'">
+
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; report-to: main-endpoint;">
+...
+</head>
+```
+---
+Example of violation report by the `report-to` directive
+```
+[{
+  "age":0,
+  "body":{
+	"blockedURL":"https://csplite.com/tst/media/7_del.png",
+	"disposition":"enforce",
+	"documentURL":"https://csplite.com/tst/test_frame.php?ID=229&hash=da964209653e467d337313e51876e27d",
+	"effectiveDirective":"img-src",
+	"lineNumber":9,
+	"originalPolicy":"default-src 'none'; report-to endpoint-csp;",
+	"referrer":"https://csplite.com/test229/",
+	"sourceFile":"https://csplite.com/tst/test_frame.php?ID=229&hash=da964209653e467d337313e51876e27d",
+	"statusCode":0
+	},
+  "type":"csp-violation",
+  "url":"https://csplite.com/tst/test_frame.php?ID=229&hash=da964209653e467d337313e51876e27d",
+  "user_agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
+}]
+```
+---
+Report URI Service
 
 ---
 
