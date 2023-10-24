@@ -350,7 +350,7 @@ Test code:
 
 [report-uri](https://www.w3.org/TR/CSP3/#directive-report-uri) is deprecated. However not all browsers support the new directive [report-to](https://www.w3.org/TR/CSP3/#directive-report-to), thus is ok to include both to support past and future browsers.
 
-The [report-to](https://www.w3.org/TR/CSP3/#directive-report-to) directive defines a reporting endpoint to which violation reports ought to be sent.
+The [report-to](https://www.w3.org/TR/CSP3/#directive-report-to) directive defines a reporting endpoint to which violation reports ought to be sent. The endpoint must serve through the `https` protocol.
 
 ---
 `report-to` example:
