@@ -232,32 +232,39 @@ Stored XSS generally occurs when user input is stored on the target server, such
 ---
 
 # How can we use CSP to mitigate XSS
- 
-In your `<head>` section<br>`Content-Security-Policy: <policy-directive>; <policy-directive>`
 
-`Content-Security-Policy-Report-Only` header is useful for reporting, instead of restricting.
+##### HTTP Headers
 
-Example:
+`HTTP headers` let the client and the server pass additional information with an HTTP request or response.
 
-```html
-<meta http-equiv="Content-Security-Policy" content="Your Policy Definition here ...">
-```
+- `Request headers` contain more information about the resource to be fetched, or about the client requesting the resource.
+- `Response headers` hold additional information about the response, like its location or about the server providing it.
 
 ---
+# HTTP Response headers -controls CSP directives
 
-# XSS - Reflected (type-1)
+HTTP response headers<br>`Content-Security-Policy: <policy-directive>; <policy-directive>`
 
-Let's explore this type of XSS.
+`Content-Security-Policy-Report-Only` header is useful for reporting, instead of only restricting. Useful for testing your webapp with CSPs.
 
-Demo
+---
+# Content-Security-Policy - example
 
-neste what 
+HTML Example:
 
+```html
+<meta http-equiv="Content-Security-Policy" content="default-src `none`;">
+```
+
+Python using Flask example:
+```python
+ response.headers['Content-Security-Policy'] = "default-src 'none';"
+```
 ---
 
 <!-- _class: lead -->
 
-# Explore directives
+# Explore CSP directives
 
 # `default-src` - `script-src`<br>`style-src` - `font-src`
 
@@ -266,13 +273,10 @@ neste what
 # Directive : `default-src`
 
 If a [`default-src`](https://www.w3.org/TR/CSP3/#directive-default-src) directive is present in a policy, its value will be used as the policy’s default source list. That is, given `default-src 'none';` `script-src 'self'`, script requests will use `'self'` as the source list to match against. Other requests will use `'none'`.
-Test code:
-```html
-<head>
-...
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none';">
-...
-</head>
+
+Example:
+```python
+response.headers['Content-Security-Policy'] = "default-src 'none';"
 ```
 
 ---
@@ -281,13 +285,9 @@ Test code:
 
 The [script-src](https://www.w3.org/TR/CSP3/#directive-script-src) directive restricts the locations from which scripts may be executed. This includes not only URLs loaded directly into script elements, but also things like inline script blocks and XSLT stylesheets [XSLT] which can trigger script execution. 
 
-Test code:
-```html
-<head>
-...
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' <other_source>; ">
-...
-</head>
+Example:
+```python
+response.headers['Content-Security-Policy'] = "default-src 'none'; script-src 'self' *.bouvet.no <other_source>;"
 ```
 
 ---
@@ -296,15 +296,10 @@ Test code:
 
 The [font-src](https://www.w3.org/TR/CSP3/#directive-font-src) directive specifies valid sources for fonts loaded using `@font-face`.
 
-Test code:
-```html
-<head>
-...
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self' <other_source>; ">
-...
-</head>
+Example:
+```python
+response.headers['Content-Security-Policy'] = "default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self' fonts.bouvet.no <other_source>; "
 ```
-
 
 ---
 <!-- _class: lead -->
@@ -318,26 +313,18 @@ Test code:
 The [connect-src](https://www.w3.org/TR/CSP3/#directive-connect-src) directive restricts the URLs which can be loaded using script interfaces. The APIs that are restricted are:
 `<a> ping` - `fetch()` - `XMLHttpRequest` - `WebSocket` - `EventSource` and `Navigator.sendBeacon()`
 
-Test code:
-```html
-<head>
-...
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self' <other_source>; ">
-...
-</head>
+Example:
+```python
+response.headers['Content-Security-Policy'] = "default-src 'none'; connect-src 'self' *.bouvet.no <other_source>;"
 ```
 ---
 # Directive : `media-src`
 
 The [media-src](https://www.w3.org/TR/CSP3/#directive-media-src) directive restricts the URLs from which `<video>`, `<audio>`, and associated text track resources may be loaded.
 
-Test code:
-```html
-<head>
-...
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; media-src 'self' <other_source>; ">
-...
-</head>
+Example:
+```python
+response.headers['Content-Security-Policy'] = "default-src 'none'; media-src 'self' images.bouvet.no <other_source>;"
 ```
 ---
 
@@ -354,14 +341,10 @@ The [report-to](https://www.w3.org/TR/CSP3/#directive-report-to) directive defin
 
 ---
 `report-to` example:
-```html
-<head>
-...
-  <meta http-equiv="Reporting-Endpoints" content="main-endpoint='https://bouvet.no/csp-reports', default='https://backup.bouvet.no/csp-reports'">
+```python
+response.headers['Reporting-Endpoints'] = "main-endpoint='https://bouvet.no/csp-reports';"
 
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; report-to: main-endpoint;">
-...
-</head>
+response.headers['Content-Security-Policy'] = "default-src 'none'; script-src 'self'; style-src 'self'; report-to: main-endpoint;"
 ```
 ---
 Example of violation report by the `report-to` directive
