@@ -7,10 +7,12 @@ paginate: true
 html: true  
 ---
 <!-- _class: lead -->
-![bg right:35%](https://bouvet.fotoware.cloud/fotoweb/cache/v2/B/u/Folder%2045/1265388_568436249871255_532998036_o.jpg.iyf-z_7VMc1lTYFjgBkA.PbsMGhTVH8.jpg)
+![bg right:35%](./resources/bouvet_people.jpg)
 # Content Security Policies<br>Workshop
 
->Security isn’t something you buy it’s something you do!
+```
+Security isn’t something you buy, it’s something you do!
+```
 
 ---
 ## Learning objectives 👩🏽‍🏫
@@ -24,7 +26,7 @@ html: true
 # Agenda
 
 ```
-09:00 - 09:30 - Why do we need CSP - the risk of injections
+09:00 - 09:30 - Why - The risk of injections
               - What is CSP
               - How can we use CSP
 09:30 - 11:00 - CSP directives - with a ☕️ break :
@@ -34,7 +36,7 @@ html: true
               - Media directives - "img-src" and "media-src"
 11:00 - 11:30 - Reporting URI - logging violation issues
               - "report-uri" directive
-              - Migration approach for your existing project
+              - Applying directives to your existing project
 11:45 - 12:00 - Summary
 ```
 ---
@@ -229,9 +231,11 @@ Stored XSS generally occurs when user input is stored on the target server, such
 
 ---
 
-## How can we use CSP to mitigate XSS
+# How can we use CSP to mitigate XSS
  
 In your `<head>` section<br>`Content-Security-Policy: <policy-directive>; <policy-directive>`
+
+`Content-Security-Policy-Report-Only` header is useful for reporting, instead of restricting.
 
 Example:
 
@@ -255,7 +259,7 @@ neste what
 
 # Explore directives
 
-## `default-src` - `script-src`<br>`style-src` - `font-src`
+# `default-src` - `script-src`<br>`style-src` - `font-src`
 
 ---
 
@@ -281,7 +285,7 @@ Test code:
 ```html
 <head>
 ...
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src='self'; ">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' <other_source>; ">
 ...
 </head>
 ```
@@ -290,10 +294,13 @@ Test code:
 
 # Directive : `font-src`
 
+The [font-src](https://www.w3.org/TR/CSP3/#directive-font-src) directive specifies valid sources for fonts loaded using `@font-face`.
+
+Test code:
 ```html
 <head>
 ...
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src='self'; style-src='self'; font-src='self'; ">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self' <other_source>; ">
 ...
 </head>
 ```
@@ -302,14 +309,98 @@ Test code:
 ---
 <!-- _class: lead -->
 
-# Explore directive
+# Explore directive<br>`connect-src` - `media-src`
 
-## `connect-src` - `media-src`
 
+---
+# Directive : `connect-src`
+
+The [connect-src](https://www.w3.org/TR/CSP3/#directive-connect-src) directive restricts the URLs which can be loaded using script interfaces. The APIs that are restricted are:
+`<a> ping` - `fetch()` - `XMLHttpRequest` - `WebSocket` - `EventSource` and `Navigator.sendBeacon()`
+
+Test code:
+```html
+<head>
+...
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self' <other_source>; ">
+...
+</head>
+```
+---
+# Directive : `media-src`
+
+The [media-src](https://www.w3.org/TR/CSP3/#directive-media-src) directive restricts the URLs from which `<video>`, `<audio>`, and associated text track resources may be loaded.
+
+Test code:
+```html
+<head>
+...
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; media-src 'self' <other_source>; ">
+...
+</head>
+```
+---
+
+<!-- _class: lead -->
+
+# Reporting violations of directives<br>`report-uri` / `report-to`
+
+---
+# Directive : `report-uri` / `report-to`
+
+[report-uri](https://www.w3.org/TR/CSP3/#directive-report-uri) is deprecated. However not all browsers support the new directive [report-to](https://www.w3.org/TR/CSP3/#directive-report-to), thus is ok to include both to support past and future browsers.
+
+The [report-to](https://www.w3.org/TR/CSP3/#directive-report-to) directive defines a reporting endpoint to which violation reports ought to be sent. The endpoint must serve through the `https` protocol.
+
+---
+`report-to` example:
+```html
+<head>
+...
+  <meta http-equiv="Reporting-Endpoints" content="main-endpoint='https://bouvet.no/csp-reports', default='https://backup.bouvet.no/csp-reports'">
+
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; report-to: main-endpoint;">
+...
+</head>
+```
+---
+Example of violation report by the `report-to` directive
+```
+[{
+  "age":0,
+  "body":{
+	"blockedURL":"https://csplite.com/tst/media/7_del.png",
+	"disposition":"enforce",
+	"documentURL":"https://csplite.com/tst/test_frame.php?ID=229&hash=da964209653e467d337313e51876e27d",
+	"effectiveDirective":"img-src",
+	"lineNumber":9,
+	"originalPolicy":"default-src 'none'; report-to endpoint-csp;",
+	"referrer":"https://csplite.com/test229/",
+	"sourceFile":"https://csplite.com/tst/test_frame.php?ID=229&hash=da964209653e467d337313e51876e27d",
+	"statusCode":0
+	},
+  "type":"csp-violation",
+  "url":"https://csplite.com/tst/test_frame.php?ID=229&hash=da964209653e467d337313e51876e27d",
+  "user_agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
+}]
+```
+---
+Report URI Service
 
 ---
 
 <!-- _class: lead -->
 
-# Reporting violations of directives<br>`report-uri`
+# Applying directives to your<br>existing project
 
+---
+
+# Restrict and then adjust
+
+1. Start with locking down everything
+  `default-src='self';`
+2. Set the directive to just report errors
+  `Content-Security-Policy-Report-Only: default-src='self';`
+3. Start adding directives - step by step
+ `script-src` , `style-src` and `font-src`
+4. Adjust directives, by interpreting the console log

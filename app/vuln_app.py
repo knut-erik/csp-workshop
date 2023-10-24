@@ -37,10 +37,15 @@ def csp():
         name = 'Anonymous'
 
     # Ex 1 - prevent XSS no. x
-    header = "<head> <meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'none'; script-src='self'; \"> </head> "
-    greet = header + 'Hello there ' + name
+    response_html = "<html>"
+    response_html = '<body>Hello there ' + name +'</body>'
+    response_html += '</html>'
+    response = make_response(response_html);
 
-    return greet
+    response.headers['Content-Security-Policy'] = "default-src 'none'; script-src 'self'; report-to main-endpoint;"
+    #response.headers['Reporting-Endpoints'] = "main-endpoint='https://jallamikk.no/csp-reports';"
+
+    return response
 
 # Creating a cookie for the examples
 @app.after_request
