@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<head>
-    <meta charset="UTF-8">
-    <title>CSP Workshop</title>
-</head>
-<body>
-    Hello there {{ name|safe }}
-</body>
-
+    <head>
+        <meta charset="UTF-8">
+        <title>CSP Workshop</title>
+    </head>
+    <body>
+        <h2>Hello there {{ name|safe }}</h2>
+        <h3>You wrote {{ description|safe }}</h3><br><br>
+        <hr>
+        <form action="/csp/">
+            <label >Name:</label>
+            <input type="text" id="name" name="name"><br>
+            <label >Random text field:</label><br>
+            <textarea id="description" name="description" rows="4" cols="50">Write Something</textarea>
+            <br>
+            <input type="submit" value="Submit">
+          </form>
+    </body>
 </html>
