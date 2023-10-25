@@ -36,16 +36,10 @@ def csp():
     if not name:
         name = 'Anonymous'
 
-    # Ex 1 - prevent XSS no. x
-    response_html = "<html>"
-    response_html = '<body>Hello there ' + name +'</body>'
-    response_html += '</html>'
-    response = make_response(response_html);
-
     #response.headers['Content-Security-Policy'] = <your policies>
     #response.headers['Reporting-Endpoints'] = <your endpoints>
-
-    return response
+    
+    return render_template('csp.html', name=name)
 
 # Creating a cookie for the examples
 @app.after_request
