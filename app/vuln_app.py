@@ -42,8 +42,8 @@ def csp():
     response_html += '</html>'
     response = make_response(response_html);
 
-    response.headers['Content-Security-Policy'] = "default-src 'none'; script-src 'self'; report-to main-endpoint;"
-    #response.headers['Reporting-Endpoints'] = "main-endpoint='https://jallamikk.no/csp-reports';"
+    #response.headers['Content-Security-Policy'] = <your policies>
+    #response.headers['Reporting-Endpoints'] = <your endpoints>
 
     return response
 
