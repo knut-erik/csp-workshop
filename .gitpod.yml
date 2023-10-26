@@ -16,10 +16,6 @@ tasks:
       export FLASK_APP=./app/vuln_app.py
       export FLASK_ENV=development
       flask --debug run
-  - name: Install and run marp
-    command: |
-      brew install marp-cli
-      marp --theme-set ./themes -w ./content/
 
 ports:
   - name: flask-app
@@ -36,16 +32,6 @@ gitConfig:
     gpg.format: ssh
     commit.gpgsign: "true"
     user.signingkey: ~/.ssh/id_rsa.pub
-
-github:
-    prebuilds:
-        master: true
-        branches: true
-        pullRequests: true
-        pullRequestsFromForks: true
-        addCheck: true
-        addComment: false
-        addBadge: true
 
 vscode:
     extensions:
