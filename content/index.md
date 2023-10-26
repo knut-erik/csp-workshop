@@ -258,7 +258,9 @@ HTML Example:
 
 Python using Flask example:
 ```python
- response.headers['Content-Security-Policy'] = "default-src 'none';"
+response.headers['Content-Security-Policy'] = "default-src 'none';"
+response.headers['Content-Security-Policy-Report-Only'] = "default-src 'none';"
+
 ```
 ---
 
@@ -266,7 +268,7 @@ Python using Flask example:
 
 # Explore CSP directives
 
-# `default-src` - `script-src`<br>`style-src` - `font-src`
+# `default-src` - `script-src`<br>`style-src` - `font-src` - `img-src`
 
 ---
 
@@ -287,7 +289,17 @@ The [script-src](https://www.w3.org/TR/CSP3/#directive-script-src) directive res
 
 Example:
 ```python
-response.headers['Content-Security-Policy'] = "default-src 'none'; script-src 'self' *.bouvet.no <other_source>;"
+response.headers['Content-Security-Policy'] = "default-src 'none'; script-src 'self' https://js.bouvet.no <other_source>;"
+```
+---
+
+# Directive : `style-src`
+
+The [style-src](https://www.w3.org/TR/CSP3/#directive-style-src) directive restricts the locations from which style may be applied to a [Document](https://dom.spec.whatwg.org/#document).
+
+Example:
+```python
+response.headers['Content-Security-Policy'] = "default-src 'none'; style-src 'self' https://css.bouvet.no <other_source>;"
 ```
 
 ---
@@ -298,7 +310,18 @@ The [font-src](https://www.w3.org/TR/CSP3/#directive-font-src) directive specifi
 
 Example:
 ```python
-response.headers['Content-Security-Policy'] = "default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self' fonts.bouvet.no <other_source>; "
+response.headers['Content-Security-Policy'] = "default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self' https://fonts.bouvet.no <other_source>; "
+```
+
+---
+
+# Directive : `img-src`
+
+The [img-src](https://www.w3.org/TR/CSP3/#directive-img-src) directive restricts the URLs from which image resources may be loaded.
+
+Example:
+```python
+response.headers['Content-Security-Policy'] = "default-src 'none'; img-src 'self' https://images.bouvet.no <other_source>; "
 ```
 
 ---
@@ -315,7 +338,7 @@ The [connect-src](https://www.w3.org/TR/CSP3/#directive-connect-src) directive r
 
 Example:
 ```python
-response.headers['Content-Security-Policy'] = "default-src 'none'; connect-src 'self' *.bouvet.no <other_source>;"
+response.headers['Content-Security-Policy'] = "default-src 'none'; connect-src 'self' https://*.bouvet.no <other_source>;"
 ```
 ---
 # Directive : `media-src`
@@ -324,7 +347,7 @@ The [media-src](https://www.w3.org/TR/CSP3/#directive-media-src) directive restr
 
 Example:
 ```python
-response.headers['Content-Security-Policy'] = "default-src 'none'; media-src 'self' images.bouvet.no <other_source>;"
+response.headers['Content-Security-Policy'] = "default-src 'none'; media-src 'self' https://video.bouvet.no https://audio.bouvet.no <other_source>;"
 ```
 ---
 
@@ -368,10 +391,6 @@ Example of violation report by the `report-to` directive
 }]
 ```
 ---
-Report URI Service
-
----
-
 <!-- _class: lead -->
 
 # Applying directives to your<br>existing project
@@ -381,9 +400,9 @@ Report URI Service
 # Restrict and then adjust
 
 1. Start with locking down everything
-  `default-src='self';`
+  `default-src='none';`
 2. Set the directive to just report errors
-  `Content-Security-Policy-Report-Only: default-src='self';`
+  `Content-Security-Policy-Report-Only: default-src='none';`
 3. Start adding directives - step by step
- `script-src` , `style-src` and `font-src`
-4. Adjust directives, by interpreting the console log
+ `script-src` , `style-src`, `img-src` and `font-src`
+4. Adjust directives iteratively, by interpreting errors in the console log
