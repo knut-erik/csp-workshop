@@ -26,24 +26,24 @@ Security isn’t something you buy, it’s something you do!
 # Agenda
 
 ```
-09:00 - 09:30 - Why - The risk of injections
-              - What is CSP
-              - How can we use CSP
-09:30 - 11:00 - CSP directives - with a ☕️ break :
-              - "default-src"
-              - "script-src" - "style-src" - "font-src"
-              - "connect-src"
-              - Media directives - "img-src" and "media-src"
-11:00 - 11:30 - Reporting URI - logging violation issues
-              - "report-uri" directive
-              - Applying directives to your existing project
-11:45 - 12:00 - Summary
+- The risk of injections (XSS)
+  - Top most dangrous software weaknesses
+  - Why do we need CSP
+- CSP directives - with a ☕️ break :
+  - "default-src"
+  - "script-src" - "style-src" - "font-src" - "img-src"
+  - "connect-src" and "media-src"
+- Reporting URI - logging violation issues
+  - "report-uri / report-to" directive
+- Applying directives to your existing project
+- We explore together - by adding CSP to an existing site
 ```
+
 ---
 # Disclaimer
 
-- I'm not an expert but I'm here to learn and I share what I've learned so far in the journey
-- Application Security is a broad topic - this workshop has it's focus on CSP and defending certain types of attacks
+- We're not experts but we're here together to learn and share what we have learned so far in the journey
+- Application Security is a broad topic - this workshop has it's focus on CSP for defending for certain types of attacks
 - The perspective is depended on experience, personal journey in security and many other factors
 - The more we learn about cyber security, the more we realise how complex it is
 - Please share your thoughts, ideas and experiences
@@ -77,7 +77,17 @@ section h1 {
 # &lt;
 
 ---
+<style scoped>
+section h1 {
+  font-size: 14rem;
+  color: red;
+  text-align: center;
+}
+</style>
 
+# XSS
+
+---
 <style scoped>
 section code {
   text-align: left;
@@ -98,16 +108,6 @@ section h1 {
 `""[(!1+"")[3]+(!0+"")[2]+(''+{})[2]][(''+{})[5]+(''+{})[1]+((""[(!1+"")[3]+(!0+"")[2]+(''+{})[2]])+"")[2]+(!1+'')[3]+(!0+'')[0]+(!0+'')[1]+(!0+'')[2]+(''+{})[5]+(!0+'')[0]+(''+{})[1]+(!0+'')[1]](((!1+"")[1]+(!1+"")[2]+(!0+"")[3]+(!0+"")[1]+(!0+"")[0])+"(1)")()`
 
 <!-- source: https://inventropy.us/blog/constructing-an-xss-vector-using-no-letters  -->
----
-<style scoped>
-section h1 {
-  font-size: 14rem;
-  color: red;
-  text-align: center;
-}
-</style>
-
-# XSS
 
 ---
 <style scoped>
@@ -127,7 +127,7 @@ Function("alert(1)")()
 # Top Most Dangerous Software Weaknesses
 
 1. Out-of-bounds Write - (overwrite memory - C/C++)
-2. Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')
+2. **Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')**
 3. Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')
 
 Source: [MITRE - cwe.mitre.org - 2023](https://cwe.mitre.org/top25/archive/2023/2023_top25_list.html)
@@ -371,7 +371,7 @@ response.headers['Content-Security-Policy'] = "default-src 'none'; script-src 's
 ```
 ---
 Example of violation report by the `report-to` directive
-```
+```json
 [{
   "age":0,
   "body":{
@@ -444,7 +444,7 @@ Subresource Integrity (SRI) is a security feature that enables browsers to verif
 - Tools : https://report-uri.com/home/tools
 - e.g. Scan security headers, Hashing etc
 - SRI Hashes - https://report-uri.com/home/sri_hash
-- Also a great service for receiving CSP errors (`report-to`)
+- There is also a service for storing your CSP errors for monitoring an analysis, ref. the `report-to` directive
 
 ---
 <!-- _class: lead -->
@@ -462,3 +462,21 @@ Subresource Integrity (SRI) is a security feature that enables browsers to verif
 3. Start adding directives - step by step
  `script-src` , `style-src`, `img-src` and `font-src`
 4. Adjust directives iteratively, by interpreting errors in the console log
+
+---
+# Now you and your task 
+
+- Restrict the url `/test` page with CSPs
+- Have a look in the browser console for CSP errors
+- Code in `/app/vuln_app.py`
+
+```python
+    #Set your HTTP Response headers below
+    #response.headers['<header>'] = "<header_value(s)>"
+    csp_policy = "default-src 'none';"
+    script_policy = " script-src 'none';"
+    style_policy = " style-src 'none';"
+    font_policy = " font-src 'none';"
+    img_policy = " img-src 'none';"
+    response.headers['Content-Security-Policy-Report-Only'] = csp_policy
+```
