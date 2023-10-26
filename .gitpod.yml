@@ -22,11 +22,6 @@ ports:
     description: The flask web app 
     port: 5000
     visibility: private
-  - name: slides preview 
-    description: Preview window of presentation
-    port: 5500
-    visibility: private
-    onOpen: open-browser
 
 gitConfig:
     gpg.format: ssh
