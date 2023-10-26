@@ -393,6 +393,62 @@ Example of violation report by the `report-to` directive
 ---
 <!-- _class: lead -->
 
+# Nonce and hashes
+
+---
+# Nonce - Inline script
+
+Allowing all inline scripts is considered a security risk, so it's recommended to use a nonce-source or a hash-source instead. It is important to note, this nonce value needs to be dynamically generated as it has to be unique for each HTTP request.
+
+```
+<script nonce="2726c7f26c">
+  const inline = 1;
+  // …
+</script>
+```
+`Content-Security-Policy: script-src 'nonce-2726c7f26c'`
+
+---
+# Hashes
+
+Alternatively, you can create hashes from your inline scripts. CSP supports sha256, sha384 and sha512.
+```
+<script>
+  const inline = 1;
+</script>
+```
+`echo -n 'const inline = 1;' | openssl sha256 -binary | openssl base64`
+
+`Content-Security-Policy: script-src 'sha256-2XA6OeWgx7rumjOswMWkHzvY7xYWT9JsRykQhkmJXi0='`
+
+---
+# Best practice
+
+.. is ofc not to use inline scripts or styles, but use .js/.css files and hash files for use in CSP.
+
+`cat ./scripts.js | openssl sha256 -binary | openssl base64`
+`cat ./styles.css | openssl sha256 -binary | openssl base64`
+
+`Content-Security-Policy: script-src 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='; style-src 'sha256-yFzV7Vvcuayqdtl6O1dkcA1ivVe5RwOH6jLVDn83bfQ='`
+
+---
+# SRI Hash - `integrity`
+
+Subresource Integrity (SRI) is a security feature that enables browsers to verify that resources they fetch (for example, from a CDN) are delivered without unexpected manipulation. It works by allowing you to provide a cryptographic hash that a fetched resource must match.
+
+`<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" integrity="sha256-PDJQdTN7dolQWDASIoBVrjkuOEaI137FI15sqI3Oxu8=" crossorigin="anonymous">`
+
+---
+# report-uri.com
+
+- Tools : https://report-uri.com/home/tools
+- e.g. Scan security headers, Hashing etc
+- SRI Hashes - https://report-uri.com/home/sri_hash
+- Also a great service for receiving CSP errors (`report-to`)
+
+---
+<!-- _class: lead -->
+
 # Applying directives to your<br>existing project
 
 ---
