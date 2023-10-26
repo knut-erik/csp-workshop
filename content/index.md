@@ -368,6 +368,9 @@ The [report-to](https://www.w3.org/TR/CSP3/#directive-report-to) directive defin
 response.headers['Reporting-Endpoints'] = "main-endpoint='https://bouvet.no/csp-reports';"
 
 response.headers['Content-Security-Policy'] = "default-src 'none'; script-src 'self'; style-src 'self'; report-to: main-endpoint;"
+
+response.headers['Content-Security-Policy'] = "default-src 'none'; report-uri https://bouvet.no/csp-reports;"
+
 ```
 ---
 Example of violation report by the `report-to` directive
