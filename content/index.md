@@ -160,6 +160,16 @@ The primary goal of CSP is to mitigate and report XSS attacks!
 * XSS ranked as 3rd on the OWASP TOP 10 list
 
 ---
+<style scoped>
+section p {
+  font-size: 2rem;
+  text-align: center;
+}
+</style>
+
+> _CSP + Security Headers er et mareritt å komme seg forbi som pen-tester!_
+
+---
 
 # What is CSP?
 
@@ -474,6 +484,10 @@ Subresource Integrity (SRI) is a security feature that enables browsers to verif
 - e.g. Scan security headers, Hashing etc
 - SRI Hashes - https://report-uri.com/home/sri_hash
 - There is also a service for storing your CSP errors for monitoring an analysis, ref. the `report-to` directive
+
+---
+# Mapping - HTML/JS features and CSP 3 controls
+![bg 30%](./resources/csp_policy3_diagram.png)
 
 ---
 <!-- _class: lead -->
