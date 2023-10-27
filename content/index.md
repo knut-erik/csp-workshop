@@ -461,6 +461,17 @@ Alternatively, you can create hashes from your inline scripts. CSP supports sha2
 `Content-Security-Policy: script-src 'sha256-2XA6OeWgx7rumjOswMWkHzvY7xYWT9JsRykQhkmJXi0='`
 
 ---
+# Generic Unsafe Policy
+
+By default Content Security Policy does not allow inline javascript. 
+- No directly embed javascript
+- Why - most client side attacks involve maliciously injecting javascript into HTML
+
+You can relax this restriction by including the `unsafe-inline` and/or `unsafe-eval` keyword in your script-src (and/or style-src)
+
+❗️This defeats the purpose of CSP❗️
+
+---
 # Best practice
 
 .. is ofc not to use inline scripts or styles, but use .js/.css files and hash files for use in CSP.
