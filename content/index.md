@@ -518,11 +518,21 @@ Subresource Integrity (SRI) is a security feature that enables browsers to verif
 4. Adjust directives iteratively, by interpreting errors in the console log
 
 ---
+<style scoped>
+section code {
+  font-size: 0.6rem;
+}
+section li {
+  font-size: 0.7rem;
+}
+</style>
 # Now you and your task 
 
 - Restrict the url `/test` page with CSPs
 - Have a look in the browser console for CSP errors
 - Code in `/app/vuln_app.py`
+- Repo : `https://github.com/Bouvet-deler/csp-workshop/`
+- GitPod: `https://gitpod.io/#/https://github.com/Bouvet-deler/csp-workshop/`
 
 ```python
     #Set your HTTP Response headers below
