@@ -464,10 +464,10 @@ Alternatively, you can create hashes from your inline scripts. CSP supports sha2
 # Generic Unsafe Policy
 
 By default Content Security Policy does not allow inline javascript. 
-- No directly embed javascript
+- No directly embed javascript will work
 - Why - most client side attacks involve maliciously injecting javascript into HTML
 
-You can relax this restriction by including the `unsafe-inline` and/or `unsafe-eval` keyword in your script-src (and/or style-src)
+You can relax this restriction by including the `unsafe-inline` and/or `unsafe-eval` keyword in your `script-src` and/or `style-src`
 
 ❗️This defeats the purpose of CSP❗️
 
