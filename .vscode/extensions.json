@@ -1,0 +1,10 @@
+{
+    
+    "recommendations": [
+        "marp-team.marp-vscode",
+        "ritwickdey.liveserver",
+        "dbaeumer.vscode-eslint",
+        "editorconfig.editorconfig",
+        "wayou.vscode-todo-highlight"
+    ]
+}
