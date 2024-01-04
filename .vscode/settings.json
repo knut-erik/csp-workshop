@@ -1,5 +1,6 @@
 {
     "markdown.marp.themes": [
         "./themes/bouvet.css"
-    ]
-  }
+    ],
+     "extensions.ignoreRecommendations": false
+}
