@@ -34,6 +34,15 @@ Install and use a Python 3.x environment with flask
 
 You can also use gitpod.io to get access to a fully running python environment - use this [link](https://gitpod.io/#/https://github.com/Bouvet-deler/csp-workshop)
 
+## Presentation
+
+Genereate html from marp presentation
+- Install `marp-cli` 👇
+- `brew install marp-cli`
+- on root directory run the command 👇
+- `marp --theme-set ./themes -w ./content/`
+
+
 ---
 
 [MIT LICENSE](./LICENSE)

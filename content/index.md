@@ -26,24 +26,24 @@ Security isn’t something you buy, it’s something you do!
 # Agenda
 
 ```
-09:00 - 09:30 - Why - The risk of injections
-              - What is CSP
-              - How can we use CSP
-09:30 - 11:00 - CSP directives - with a ☕️ break :
-              - "default-src"
-              - "script-src" - "style-src" - "font-src"
-              - "connect-src"
-              - Media directives - "img-src" and "media-src"
-11:00 - 11:30 - Reporting URI - logging violation issues
-              - "report-uri" directive
-              - Applying directives to your existing project
-11:45 - 12:00 - Summary
+- The risk of injections (XSS)
+  - Top most dangrous software weaknesses
+  - Why do we need CSP
+- CSP directives - with a ☕️ break :
+  - "default-src"
+  - "script-src" - "style-src" - "font-src" - "img-src"
+  - "connect-src" and "media-src"
+- Reporting URI - logging violation issues
+  - "report-uri / report-to" directive
+- Applying directives to your existing project
+- We explore together - by adding CSP to an existing site
 ```
+
 ---
 # Disclaimer
 
-- I'm not an expert but I'm here to learn and I share what I've learned so far in the journey
-- Application Security is a broad topic - this workshop has it's focus on CSP and defending certain types of attacks
+- We're not experts but we're here together to learn and share what we have learned so far in the journey
+- Application Security is a broad topic - this workshop has it's focus on CSP for defending for certain types of attacks
 - The perspective is depended on experience, personal journey in security and many other factors
 - The more we learn about cyber security, the more we realise how complex it is
 - Please share your thoughts, ideas and experiences
@@ -77,7 +77,17 @@ section h1 {
 # &lt;
 
 ---
+<style scoped>
+section h1 {
+  font-size: 14rem;
+  color: red;
+  text-align: center;
+}
+</style>
 
+# XSS
+
+---
 <style scoped>
 section code {
   text-align: left;
@@ -98,16 +108,6 @@ section h1 {
 `""[(!1+"")[3]+(!0+"")[2]+(''+{})[2]][(''+{})[5]+(''+{})[1]+((""[(!1+"")[3]+(!0+"")[2]+(''+{})[2]])+"")[2]+(!1+'')[3]+(!0+'')[0]+(!0+'')[1]+(!0+'')[2]+(''+{})[5]+(!0+'')[0]+(''+{})[1]+(!0+'')[1]](((!1+"")[1]+(!1+"")[2]+(!0+"")[3]+(!0+"")[1]+(!0+"")[0])+"(1)")()`
 
 <!-- source: https://inventropy.us/blog/constructing-an-xss-vector-using-no-letters  -->
----
-<style scoped>
-section h1 {
-  font-size: 14rem;
-  color: red;
-  text-align: center;
-}
-</style>
-
-# XSS
 
 ---
 <style scoped>
@@ -127,7 +127,7 @@ Function("alert(1)")()
 # Top Most Dangerous Software Weaknesses
 
 1. Out-of-bounds Write - (overwrite memory - C/C++)
-2. Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')
+2. **Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')**
 3. Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')
 
 Source: [MITRE - cwe.mitre.org - 2023](https://cwe.mitre.org/top25/archive/2023/2023_top25_list.html)
@@ -158,6 +158,16 @@ The primary goal of CSP is to mitigate and report XSS attacks!
   - Cross-Site Scripting (XSS) and data injection attacks
   - Attacks are used for data theft, site defacement, malware distribution etc.
 * XSS ranked as 3rd on the OWASP TOP 10 list
+
+---
+<style scoped>
+section p {
+  font-size: 2rem;
+  text-align: center;
+}
+</style>
+
+> _CSP + Security Headers er et mareritt å komme seg forbi som pen-tester!_
 
 ---
 
@@ -192,7 +202,7 @@ Reflected XSS occurs when user input is immediately returned by a web applicatio
 
 Example:
 ```html
-https://insecure-web.com/comment?message=<script src=https//evil.corp/badscript.js></script>
+https://insecure-web.com/comment?message=<script src=https://evil.corp/badscript.js></script>
 ```
 
 ---
@@ -207,7 +217,7 @@ Stored XSS generally occurs when user input is stored on the target server, such
 
  Instead of a decent comment on the blog's input field, the attacker write:
 ```html
-<script src='https//evil.corp/badscript.js'/>
+<script src='https://evil.corp/badscript.js'/>
 ```
 
 ---
@@ -258,7 +268,9 @@ HTML Example:
 
 Python using Flask example:
 ```python
- response.headers['Content-Security-Policy'] = "default-src 'none';"
+response.headers['Content-Security-Policy'] = "default-src 'none';"
+response.headers['Content-Security-Policy-Report-Only'] = "default-src 'none';"
+
 ```
 ---
 
@@ -266,7 +278,7 @@ Python using Flask example:
 
 # Explore CSP directives
 
-# `default-src` - `script-src`<br>`style-src` - `font-src`
+# `default-src` - `script-src`<br>`style-src` - `font-src` - `img-src`
 
 ---
 
@@ -287,7 +299,17 @@ The [script-src](https://www.w3.org/TR/CSP3/#directive-script-src) directive res
 
 Example:
 ```python
-response.headers['Content-Security-Policy'] = "default-src 'none'; script-src 'self' *.bouvet.no <other_source>;"
+response.headers['Content-Security-Policy'] = "default-src 'none'; script-src 'self' https://js.bouvet.no <other_source>;"
+```
+---
+
+# Directive : `style-src`
+
+The [style-src](https://www.w3.org/TR/CSP3/#directive-style-src) directive restricts the locations from which style may be applied to a [Document](https://dom.spec.whatwg.org/#document).
+
+Example:
+```python
+response.headers['Content-Security-Policy'] = "default-src 'none'; style-src 'self' https://css.bouvet.no <other_source>;"
 ```
 
 ---
@@ -298,7 +320,18 @@ The [font-src](https://www.w3.org/TR/CSP3/#directive-font-src) directive specifi
 
 Example:
 ```python
-response.headers['Content-Security-Policy'] = "default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self' fonts.bouvet.no <other_source>; "
+response.headers['Content-Security-Policy'] = "default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self' https://fonts.bouvet.no <other_source>; "
+```
+
+---
+
+# Directive : `img-src`
+
+The [img-src](https://www.w3.org/TR/CSP3/#directive-img-src) directive restricts the URLs from which image resources may be loaded.
+
+Example:
+```python
+response.headers['Content-Security-Policy'] = "default-src 'none'; img-src 'self' https://images.bouvet.no <other_source>; "
 ```
 
 ---
@@ -315,7 +348,7 @@ The [connect-src](https://www.w3.org/TR/CSP3/#directive-connect-src) directive r
 
 Example:
 ```python
-response.headers['Content-Security-Policy'] = "default-src 'none'; connect-src 'self' *.bouvet.no <other_source>;"
+response.headers['Content-Security-Policy'] = "default-src 'none'; connect-src 'self' https://*.bouvet.no <other_source>;"
 ```
 ---
 # Directive : `media-src`
@@ -324,7 +357,7 @@ The [media-src](https://www.w3.org/TR/CSP3/#directive-media-src) directive restr
 
 Example:
 ```python
-response.headers['Content-Security-Policy'] = "default-src 'none'; media-src 'self' images.bouvet.no <other_source>;"
+response.headers['Content-Security-Policy'] = "default-src 'none'; media-src 'self' https://video.bouvet.no https://audio.bouvet.no <other_source>;"
 ```
 ---
 
@@ -345,10 +378,13 @@ The [report-to](https://www.w3.org/TR/CSP3/#directive-report-to) directive defin
 response.headers['Reporting-Endpoints'] = "main-endpoint='https://bouvet.no/csp-reports';"
 
 response.headers['Content-Security-Policy'] = "default-src 'none'; script-src 'self'; style-src 'self'; report-to: main-endpoint;"
+
+response.headers['Content-Security-Policy'] = "default-src 'none'; report-uri https://bouvet.no/csp-reports;"
+
 ```
 ---
 Example of violation report by the `report-to` directive
-```
+```json
 [{
   "age":0,
   "body":{
@@ -368,10 +404,103 @@ Example of violation report by the `report-to` directive
 }]
 ```
 ---
-Report URI Service
+<!-- _class: lead -->
+
+# Nonce and hashes
+
+---
+# Nonce - Inline script
+
+Allowing all inline scripts is considered a security risk, so it's recommended to use a nonce-source or a hash-source instead. It is important to note, this nonce value needs to be dynamically generated as it has to be unique for each HTTP request.
+
+```
+<script nonce="2726c7f26c">
+  const inline = 1;
+  // …
+</script>
+```
+`Content-Security-Policy: script-src 'nonce-2726c7f26c'`
+
+---
+# [Nonce - hijacking](https://www.w3.org/TR/CSP3/#security-nonce-hijacking)
+
+* Your code : 
+  `Content-Security-Policy: script-src 'nonce-abc'`
+  ```html
+  <p>Hello, [INJECTION POINT]</p>
+  <script nonce="abc" src="/good.js"></script>
+  ```
+
+* If an attacker injects the string 
+
+  ```html 
+  "<script src='https://evil.com/evil.js' "  
+  ````
 
 ---
 
+- then the browser will receive the following:
+
+  ```html
+  <p>Hello, <script src='https://evil.com/evil.js' </p>
+  <script nonce="abc" src="/good.js"></script>
+  ```
+It will then parse that code, ending up with a script element with a `src` attribute pointing to a malicious payload, an attribute named `</p>`, an attribute named `"<script"`, a nonce attribute, and a second src attribute which is helpfully discarded as duplicate by the parser.
+
+---
+# Hashes
+
+Alternatively, you can create hashes from your inline scripts. CSP supports sha256, sha384 and sha512.
+```
+<script>
+  const inline = 1;
+</script>
+```
+`echo -n 'const inline = 1;' | openssl sha256 -binary | openssl base64`
+
+`Content-Security-Policy: script-src 'sha256-2XA6OeWgx7rumjOswMWkHzvY7xYWT9JsRykQhkmJXi0='`
+
+---
+# Generic Unsafe Policy
+
+By default Content Security Policy does not allow inline javascript. 
+- No directly embed javascript will work
+- Why - most client side attacks involve maliciously injecting javascript into HTML
+
+You can relax this restriction by including the `unsafe-inline` and/or `unsafe-eval` keyword in your `script-src` and/or `style-src`
+
+❗️This defeats the purpose of CSP❗️
+
+---
+# Best practice
+
+.. is ofc not to use inline scripts or styles, but use .js/.css files and hash files for use in CSP.
+
+`cat ./scripts.js | openssl sha256 -binary | openssl base64`
+`cat ./styles.css | openssl sha256 -binary | openssl base64`
+
+`Content-Security-Policy: script-src 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='; style-src 'sha256-yFzV7Vvcuayqdtl6O1dkcA1ivVe5RwOH6jLVDn83bfQ='`
+
+---
+# SRI Hash - `integrity`
+
+Subresource Integrity (SRI) is a security feature that enables browsers to verify that resources they fetch (for example, from a CDN) are delivered without unexpected manipulation. It works by allowing you to provide a cryptographic hash that a fetched resource must match.
+
+`<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" integrity="sha256-PDJQdTN7dolQWDASIoBVrjkuOEaI137FI15sqI3Oxu8=" crossorigin="anonymous">`
+
+---
+# report-uri.com
+
+- Tools : https://report-uri.com/home/tools
+- e.g. Scan security headers, Hashing etc
+- SRI Hashes - https://report-uri.com/home/sri_hash
+- There is also a service for storing your CSP errors for monitoring an analysis, ref. the `report-to` directive
+
+---
+# Mapping - HTML/JS features and CSP 3 controls
+![bg 30%](./resources/csp_policy3_diagram.png)
+
+---
 <!-- _class: lead -->
 
 # Applying directives to your<br>existing project
@@ -381,9 +510,37 @@ Report URI Service
 # Restrict and then adjust
 
 1. Start with locking down everything
-  `default-src='self';`
+  `default-src='none';`
 2. Set the directive to just report errors
-  `Content-Security-Policy-Report-Only: default-src='self';`
+  `Content-Security-Policy-Report-Only: default-src='none';`
 3. Start adding directives - step by step
- `script-src` , `style-src` and `font-src`
-4. Adjust directives, by interpreting the console log
+ `script-src` , `style-src`, `img-src` and `font-src`
+4. Adjust directives iteratively, by interpreting errors in the console log
+
+---
+<style scoped>
+section code {
+  font-size: 0.6rem;
+}
+section li {
+  font-size: 0.7rem;
+}
+</style>
+# Now you and your task 
+
+- Restrict the url `/test` page with CSPs
+- Have a look in the browser console for CSP errors
+- Code in `/app/vuln_app.py`
+- Repo : `https://github.com/Bouvet-deler/csp-workshop/`
+- GitPod: `https://gitpod.io/#/https://github.com/Bouvet-deler/csp-workshop/`
+
+```python
+    #Set your HTTP Response headers below
+    #response.headers['<header>'] = "<header_value(s)>"
+    csp_policy = "default-src 'none';"
+    script_policy = " script-src 'none';"
+    style_policy = " style-src 'none';"
+    font_policy = " font-src 'none';"
+    img_policy = " img-src 'none';"
+    response.headers['Content-Security-Policy-Report-Only'] = csp_policy
+```

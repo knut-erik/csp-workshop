@@ -1,0 +1,39 @@
+    csp_policy = "default-src 'none';"
+    
+    script_policy = "script-src 'self' cdn.startbootstrap.com/sb-forms-latest.js cdn.startbootstrap.com/sb-forms-0.4.1.js cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js;"
+
+    style_policy = "style-src 'self' 'sha256-VBID5pvBjYWjDHUZkO1aQBfsGCVuTBRKOnx8HyXKUtw=' 'sha256-vJP66++gXP+5BHaPBuciXrdQiwJkDpcXCbxM+tt2D0g=' https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css https://fonts.googleapis.com/css; "
+
+
+    font_policy = " font-src https://fonts.googleapis.com;"
+    img_policy = " img-src 'self';"
+
+    csp_policy += script_policy + style_policy + font_policy + img_policy
+    response.headers['Content-Security-Policy-Report-Only'] = csp_policy
+
+---
+
+    csp_policy = "default-src 'none';"
+    script_policy = " script-src 'none';"
+    style_policy = " style-src 'none';"
+    font_policy = " font-src 'none';"
+    img_policy = " img-src 'self';"
+
+    csp_policy += script_policy + style_policy + font_policy + img_policy
+    response.headers['Content-Security-Policy-Report-Only'] = csp_policy
+
+---
+
+echo -n 'doSomething();' | openssl sha256 -binary | openssl base64
+cat /filename.js | openssl sha256 -binary | openssl base64
+<script nonce="rAnRFWPLDbv2BY+rCkDzsE+0fr8ylGr2R2faWMhq4lfEQc=">
+	doSomething();
+</script>
+
+eller 'hashen' i csp'en 
+
+---
+
+response.headers['Content-Security-Policy-Report-Only'] = "default-src 'none'; script-src 'none'; report-to main-endpoint;"
+
+""[(!1+"")[3]+(!0+"")[2]+(''+{})[2]][(''+{})[5]+(''+{})[1]+((""[(!1+"")[3]+(!0+"")[2]+(''+{})[2]])+"")[2]+(!1+'')[3]+(!0+'')[0]+(!0+'')[1]+(!0+'')[2]+(''+{})[5]+(!0+'')[0]+(''+{})[1]+(!0+'')[1]](((!1+"")[1]+(!1+"")[2]+(!0+"")[3]+(!0+"")[1]+(!0+"")[0])+"(1)")()
